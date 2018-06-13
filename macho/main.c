@@ -59,8 +59,15 @@ int main(int argc, const char *argv[]) {
     puts("");
     
     uint8_t *loadCmds = (uint8_t *)malloc(header.sizeofcmds);
+    if (loadCmds == NULL) {
+        fprintf(stderr, "failed to allocate %u bytes for load commands: %s\n", header.sizeofcmds, strerror(errno));
+        fclose(file);
+        return 1;
+    }
+    
     if (fread(loadCmds, sizeof(uint8_t), header.sizeofcmds, file) != header.sizeofcmds) {
         perror("failed to read load commands from file");
+        free(loadCmds);
         fclose(file);
         return 1;
     }

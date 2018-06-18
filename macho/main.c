@@ -58,7 +58,7 @@ int main(int argc, const char *argv[]) {
     printf("reserved: %08x\n", header.reserved);
     puts("");
     
-    uint8_t *loadCmds = (uint8_t *)malloc(header.sizeofcmds);
+    uint8_t *loadCmds = malloc(header.sizeofcmds);
     if (loadCmds == NULL) {
         fprintf(stderr, "failed to allocate %u bytes for load commands: %s\n", header.sizeofcmds, strerror(errno));
         fclose(file);

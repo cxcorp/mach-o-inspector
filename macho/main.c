@@ -93,7 +93,10 @@ int main(int argc, const char *argv[]) {
             
             struct section_64 *section = (struct section_64 *)(dataPtr + sizeof(struct segment_command_64));
             for (size_t i = 0; i < segCmd.nsects; i++) {
-                printf("    ↳ %s\n", section[i].sectname);
+                printf("    ↳ %-15s 0x%X (%llu bytes)\n",
+                       section[i].sectname,
+                       section[i].offset,
+                       section[i].size);
             }
         }
         
